@@ -70,7 +70,7 @@ exports.updateProduct = catchAsyncErrors( async (req,res,next) => {
     })
 });
 
-//Delte Product
+//Delete Product
 
 exports.deleteProduct = catchAsyncErrors( async(req,res,next) => {
     const product = await Product.findById(req.params.id);
