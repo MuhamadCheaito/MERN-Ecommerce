@@ -5,16 +5,68 @@ const sendToken = require('../utils/jwtToken');
 const sendEmail = require('../utils/sendEmail')
 const crypto = require('crypto');
 
+//Get All users
 exports.getAllUsers = catchAsyncErrors( async (req,res,next) => {
     const users = await User.find({});
 
     if(!users){
-        next(new ErrorHandler("You cannot access this page",404))
+        next(new ErrorHandler("There are no users yet.",404))
     }
     res.status(200).json({
         success:true,
         users
     }) 
+});
+
+
+//Get User Details
+exports.getUserDetails = catchAsyncErrors( async (req,res,next) => {
+    const user = await User.findById({_id: req.user.id});
+
+
+    res.status(200).json({
+        success:true,
+        user
+    })
+});
+
+//Update User Password
+exports.updatePassword = catchAsyncErrors( async (req,res,next) => {
+    const user = await User.findById({_id: req.user.id}).select("+password");
+    const {oldPassword,confirmPassword,newPassword} = req.body;
+    const isPasswordMatched = await user.comparePassword(oldPassword);
+
+    if(!isPasswordMatched){
+        return next(new ErrorHandler("Old password is incorrect",401));
+    }
+    if(oldPassword !== confirmPassword){
+        return next(new ErrorHandler("Passwords do not match",401));
+    }
+    user.password = newPassword;
+
+    await user.save();
+
+   sendToken(user,200,res);
+});
+
+//Update User Profile
+exports.updateProfile = catchAsyncErrors( async (req,res,next) => {
+
+    const newUserData = {
+        name:req.body.name,
+        email:req.body.email,
+    }
+
+    const user = await User.findByIdAndUpdate({_id: req.user.id},newUserData,{
+        new:true,
+        runValidators:true,
+        useFindAndModify:false
+    });
+
+   res.status(200).json({
+       success:true,
+   });
+
 });
 
 
