@@ -111,18 +111,20 @@ exports.createProductReview = catchAsyncErrors(async (req,res,next) => {
     }   
     else{
         product.reviews.push(review);
-        product.numOfReviews = product.reviews.length;
+        product.numReviews = product.reviews.length;
     }
 
     let avg = 0;
+   
+    product.reviews.forEach(rev => {
+        avg += rev.rating;
+    }) 
 
-    product.ratings = product.reviews.forEach(rev => {
-        avg += rav.rating;
-    }) / product.reviews.length;
+    product.ratings = avg / product.reviews.length;
     await product.save({validateBeforeSave: false});
 
     res.status(200).json({
         success: true,
-        
+
     })
 })
