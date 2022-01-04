@@ -4,12 +4,15 @@ const router = express.Router();
 
 const {registerUser, loginUser, logoutUser, 
       getAllUsers, forgotPassword, resetPassword, 
-      getUserDetails, updatePassword, updateProfile} = require("../controllers/userController");
+      getUserDetails, updatePassword, updateProfile, getUser} = require("../controllers/userController");
 
 const { isAuthenticatedUser,authorizeRoles } = require("../middleware/auth");
 
-router.route("/users")
+router.route("/admin/users")
       .get(isAuthenticatedUser,authorizeRoles("admin"), getAllUsers);
+
+router.route("/admin/users/:id")
+      .get(isAuthenticatedUser,authorizeRoles("admin"), getUser);
 
 router.route("/profile")
       .get(isAuthenticatedUser,getUserDetails);
