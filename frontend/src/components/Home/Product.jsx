@@ -8,8 +8,8 @@ const options = {
     activeColor: 'tomato',
     size: window.innerWidth < 600 ? 20 : 25,
     value: 2.5,
-    isHalf: true,
-}
+    isHalf: true
+};
 
 const Product = ({product}) => {
   return (

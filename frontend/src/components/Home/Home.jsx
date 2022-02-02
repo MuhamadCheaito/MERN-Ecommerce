@@ -2,17 +2,19 @@ import React from 'react';
 import { CgMouse } from 'react-icons/cg';
 import './Home.css'
 import Product from './Product'
+import MetaData from '../layout/MetaData';
 
 const product = {
   name: 'Blue Tshirt',
   images: [{url: "https://i.ibb.co/DRST11n/1.webp"}],
   price: '$300',
-  _id:"Mohamad"
+  _id:"Mohamad Cheaito"
 }
 
 
 function Home() {
   return <>
+  <MetaData title="Fares Tech"/>
   <div className='banner'>
     <p>Welcome to Fares Technology</p>
     <h1>FIND AMAZING PRODUCTS BELOW</h1>
