@@ -1,8 +1,11 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { CgMouse } from 'react-icons/cg';
 import './Home.css'
 import Product from './Product'
-import MetaData from '../layout/MetaData';
+import MetaData from '../layout/MetaData.js';
+import { getProduct } from '../../actions/productAction';
+import {useDispatch} from 'react-redux';
+
 
 const product = {
   name: 'Blue Tshirt',
@@ -13,6 +16,12 @@ const product = {
 
 
 function Home() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProduct())
+  }, [dispatch]);
+  
   return <>
   <MetaData title="Fares Tech"/>
   <div className='banner'>
