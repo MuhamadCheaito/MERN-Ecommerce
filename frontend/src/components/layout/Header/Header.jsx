@@ -18,7 +18,7 @@ const options = {
     link2Url: "/product",
     link3Url: "/contact",
     link4Url: "/about",
-    link1Size: "1.2vmax",
+    link1Size: "2.2vmax",
     link1Color: "rgba(35, 35, 35,0.8)",
     link1Family: "Roboto",
     nav1justifyContent: "flex-end",
