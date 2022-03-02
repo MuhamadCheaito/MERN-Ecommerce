@@ -3,7 +3,7 @@ import { CgMouse } from 'react-icons/cg';
 import './Home.css'
 import Product from './Product'
 import MetaData from '../layout/MetaData.js';
-import { getProduct } from '../../actions/productAction';
+import { clearErrors, getProduct } from '../../actions/productAction';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../layout/Loader/Loader';
 import { useAlert } from 'react-alert';
@@ -16,7 +16,8 @@ function Home() {
   );
   useEffect(() => {
     if(error){
-      return alert.error(error);
+      alert.error(error)
+      dispatch(clearErrors())
     }
     dispatch(getProduct())
   }, [dispatch, error,alert]);
